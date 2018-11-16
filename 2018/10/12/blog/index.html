@@ -22,7 +22,70 @@ IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面�
 </html>
 <body class="loading">
     <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">innerhtml,innertext区别</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">innerhtml,innertext区别</h1>
+        <div class="stuff">
+            <span>十月 12, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p><strong>innerhtml,innertext区别</strong><br>简单理解：</p>
+<p>一：只有一个标签的内容，例子如下：</p>
+<p><code>&lt;b id=&quot;b1&quot;&gt;测试innerHTML与innerText&lt;/b&gt;</code></p>
+<p>此时，inner HTML与inner Text获取到都是b内的内容：测试innerHTML与innerText；</p>
+<p>二：嵌套的子标签的内容，例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;d1&quot;&gt;</span><br><span class="line">&lt;p&gt;测试子inner&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>此时，innerHTMl获取到内容为div下的标签：<code>&lt;p&gt;测试子inner&lt;/p&gt;</code></p>
+<p>inner Text获取到内容为div下p内的文本：测试子inner；</p>
+<p>同理，如果有两个子，也都会获取哦~</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
     
+</div>
+
+
+    </div>
+</div>
 </body>
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>

@@ -22,7 +22,65 @@ IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面�
 </html>
 <body class="loading">
     <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">阻止默认行为方法</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">阻止默认行为方法</h1>
+        <div class="stuff">
+            <span>十一月 16, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="取消事件冒泡"><a href="#取消事件冒泡" class="headerlink" title="取消事件冒泡"></a>取消事件冒泡</h1><p>标准浏览器：e.stopPropagation;</p>
+<p>IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面写明e=e||window.event;IE里面就是e.cancelBubble=true;）</p>
+<h1 id="阻止事件行为"><a href="#阻止事件行为" class="headerlink" title="阻止事件行为"></a>阻止事件行为</h1><p><strong>阻止事件默认行为</strong>：<br>e.preventDefault(); IE:e.returnValue = false ;</p>
+<p><strong>阻止鼠标右键的默认行为：</strong><br>.oncontextmenu{<br>return false;阻止默认行为的<br>preventDefault()<br>}</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
     
+</div>
+
+
+    </div>
+</div>
 </body>
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>

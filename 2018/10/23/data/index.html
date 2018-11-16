@@ -22,7 +22,67 @@ IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面�
 </html>
 <body class="loading">
     <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">数据双向绑定</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">数据双向绑定</h1>
+        <div class="stuff">
+            <span>十月 23, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="数据双向绑定"><a href="#数据双向绑定" class="headerlink" title="数据双向绑定"></a>数据双向绑定</h1><h2 id="1-AngularJS"><a href="#1-AngularJS" class="headerlink" title="1.AngularJS:"></a>1.AngularJS:</h2><p>AngularJS 采用“脏值检测”的方式</p>
+<p>数据发生变更后，对于所有的数据和视图的绑定关系进行一次检测，识别是否有数据发生了改变，有变化进行处理，可能进一步引发其他数据的改变，所以这个过程可能会循环几次，一直到不再有数据变化发生后，将变更的数据发送到视图，更新页面展现。</p>
+<p>如果是手动ViewModel 的数据进行变更，为确保变更同步到视图，需要手动触发一次“脏值检测”。</p>
+<h2 id="2-vue"><a href="#2-vue" class="headerlink" title="2.vue"></a>2.vue</h2><p>VueJS 则使用 ES5 提供的 Object.defineProperty() 方法,监控对数据的操作，从而可以自动触发数据同步。</p>
+<p>并且，由于是在不同的数据上触发同步，可以精确的将变更发送给绑定的视图，而不是对所有的数据都执行一次检测。</p>
+<p>Object.defineProperty方法第一个参数是要设置的对象，第二个参数是对象的属性，第三个参数是一个对象，里面有set和get方法,当设置属性值或者获取属性值的时候就会执行这个set.get方法。vue就是通过set方法，做到vue数据变更时，同时渲染页面数据。vue也会给dom对象绑定对象，这样页面数据变更时，也会对应的修改data.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
     
+</div>
+
+
+    </div>
+</div>
 </body>
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>

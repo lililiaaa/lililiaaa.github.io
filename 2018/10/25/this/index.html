@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hexo</title>
+    <title>Miss婷个人博客</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any pr,"> 
-    <meta name="author" content="John Doe"> 
-    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <meta name="description" content="取消事件冒泡标准浏览器：e.stopPropagation;
+IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面写明e=e||window.event,"> 
+    <meta name="author" content="Miss 婷"> 
+    <link rel="alternative" href="atom.xml" title="Miss婷个人博客" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
     <link rel="stylesheet" href="/css/diaspora.css">
@@ -26,7 +27,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">Hello World</h3>
+    <h3 class="subtitle">this指向问题</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -43,22 +44,30 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">Hello World</h1>
+        <h1 class="title">this指向问题</h1>
         <div class="stuff">
-            <span>十一月 15, 2018</span>
+            <span>十月 25, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <h1 id="this指向问题"><a href="#this指向问题" class="headerlink" title="this指向问题"></a>this指向问题</h1><p>在普通的函数中this指向window<br>在定时器中指向window,(其实普通的函数和定时器都是window下的方法，所以都指向window)<br>在一个对象中的方法中this批向当前对象(new了) 绑事件是事件源(真正触发的)</p>
+<h1 id="改变this指向"><a href="#改变this指向" class="headerlink" title="改变this指向"></a>改变this指向</h1><p>call和apply，bind都可以用来改变函数里的this指向，区别是<br>call(obj,1,2,3,)从第二个参数开始有多个参数，用来代表函数的实参<br>apply(obj,[1,2,3])第二个参数是一个数组，数组中的每一个元素对应一个实参<br>bind(obj)(1,2,3);<br>apply,call是直接执行函数调用，bind是绑定，执行需要再次调用．</p>
+<p>apply和call 的区别是apply接受数组作为参数，而call是接受逗号分隔的无限多个参数列表，<br>“use strict”<br>就是告诉当前浏览器，接下来的JavaScript代码将按照严格模式进行编写。</p>
+<pre><code>  function fn(a,b) {
+        console.log(this);
+        console.log(a);
+        console.log(b)
+    }
+  var aa={
+    name:&apos;&apos;lililiaaa&apos;&apos;,
+    age:18
+}
+    fn.call(); // 普通模式下this是window，在严格模式下this是undefined
+    fn.call(null); // 普通模式下this是window，在严格模式下this是null
+    fn.call(undefined); // 普通模式下this是window，在严格模式下this是undefined
+    fn.call(aa,1,2)//输出aa对象,1,2
+</code></pre><p>apply方法和call方法的作用是一模一样的，都是用来改变方法的this关键字，并且把方法执行，而且在严格模式下和非严格模式下，对于第一个参数是null/undefined这种情况规律也是一样的，只是传递函数的的参数的时候有区别。</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">

@@ -22,7 +22,86 @@ IE浏览器:window.event.cancelBubble=true;（为了做兼容，如果在前面�
 </html>
 <body class="loading">
     <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">addEventListener兼容性问题</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">addEventListener兼容性问题</h1>
+        <div class="stuff">
+            <span>十一月 16, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="addEventListener兼容性问题"><a href="#addEventListener兼容性问题" class="headerlink" title="addEventListener兼容性问题"></a>addEventListener兼容性问题</h1><p>FF和Chrome只支持addEventListener<br>addEventListener(click,fn,false);(true是捕获/false事件冒泡)<br>移除:removeEventListener</p>
+<p>ie只支持attachEvent<br>attachEvent(onclick,fn);/移除:detachEvent<br>问题:attachEvent的this指向是window(用call),IE后绑定的事件先调用,顺序有问题</p>
+<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>函数封装：</p>
+<pre><code>function addEvent(obj,ev,fn) //obj为要绑定事件的元素，ev为要绑定的事件，fn为绑定事件的函数
+{
+        if(obj.addEventListener){
+            obj.addEventListener(ev,fn,false);
+    }else if(obj.attachEvent){
+               obj[ev+fn] = function(){
+                        fn.call(obj);
+                        }
+            obj.attachEvent(&quot;on&quot; + ev,obj[ev+fn]);
+        }else {
+               obj[&apos;on&apos;+type]=fn;
+        }}
+function removeEvent(obj,ev,fn)
+{
+       if(obj.removeEventListener){
+                obj.removeEventListener(ev,fn);
+        }else if(obj.detachEvent){
+            obj.detachEvent(&quot;on&quot; + ev, obj[ev+fn]);
+                    }
+           }else {
+            obj[&apos;on&apos;+type]=null;
+        }}
+</code></pre>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
     
+</div>
+
+
+    </div>
+</div>
 </body>
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 <script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
