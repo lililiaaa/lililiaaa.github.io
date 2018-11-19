@@ -28,7 +28,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">数据双向绑定</h3>
+    <h3 class="subtitle">webstorm添加vue文件语法支持</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -45,19 +45,17 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">数据双向绑定</h1>
+        <h1 class="title">webstorm添加vue文件语法支持</h1>
         <div class="stuff">
-            <span>十月 23, 2018</span>
+            <span>十一月 19, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <h1 id="数据双向绑定"><a href="#数据双向绑定" class="headerlink" title="数据双向绑定"></a>数据双向绑定</h1><h2 id="1-AngularJS"><a href="#1-AngularJS" class="headerlink" title="1.AngularJS:"></a>1.AngularJS:</h2><p>AngularJS 采用“脏值检测”的方式</p>
-<p>数据发生变更后，对于所有的数据和视图的绑定关系进行一次检测，识别是否有数据发生了改变，有变化进行处理，可能进一步引发其他数据的改变，所以这个过程可能会循环几次，一直到不再有数据变化发生后，将变更的数据发送到视图，更新页面展现。</p>
-<p>如果是手动ViewModel 的数据进行变更，为确保变更同步到视图，需要手动触发一次“脏值检测”。</p>
-<h2 id="2-vue"><a href="#2-vue" class="headerlink" title="2.vue"></a>2.vue</h2><p>VueJS 则使用 ES5 提供的 Object.defineProperty() 方法,监控对数据的操作，从而可以自动触发数据同步。</p>
-<p>并且，由于是在不同的数据上触发同步，可以精确的将变更发送给绑定的视图，而不是对所有的数据都执行一次检测。</p>
-<p>Object.defineProperty方法第一个参数是要设置的对象，第二个参数是对象的属性，第三个参数是一个对象，里面有set和get方法,当设置属性值或者获取属性值的时候就会执行这个set.get方法。vue就是通过set方法，做到vue数据变更时，同时渲染页面数据。vue也会给dom对象绑定对象，这样页面数据变更时，也会对应的修改data.</p>
+            <h1 id="webstorm添加vue文件语法支持"><a href="#webstorm添加vue文件语法支持" class="headerlink" title="webstorm添加vue文件语法支持"></a>webstorm添加vue文件语法支持</h1><h2 id="1-添加ES6语法支持："><a href="#1-添加ES6语法支持：" class="headerlink" title="1.添加ES6语法支持："></a>1.添加ES6语法支持：</h2><p>打开File-&gt;Settings-&gt;Languages&amp;Frameworks-&gt;JS-&gt;添加ES6<br><img src="https://img-blog.csdnimg.cn/20181119195751315.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbGlsaWFhYQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20181119195928610.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbGlsaWFhYQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="2-添加vue语法支持："><a href="#2-添加vue语法支持：" class="headerlink" title="2.添加vue语法支持："></a>2.添加vue语法支持：</h2><p>打开File-&gt;Settings-&gt;Plugins-&gt;查找vue.js-&gt;install(图片为已经安装好的)<br><img src="https://img-blog.csdnimg.cn/20181119200012158.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbGlsaWFhYQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="3-添加vue文件支持："><a href="#3-添加vue文件支持：" class="headerlink" title="3.添加vue文件支持："></a>3.添加vue文件支持：</h2><p>打开File-&gt;Settings-&gt;Editor-&gt;file types-&gt;找到vue.js文件样式，在下面点击加号增加*.vue<br><img src="https://img-blog.csdnimg.cn/20181119200213231.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbGlsaWFhYQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
@@ -80,7 +78,7 @@
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据双向绑定"><span class="toc-number">1.</span> <span class="toc-text">数据双向绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-AngularJS"><span class="toc-number">1.1.</span> <span class="toc-text">1.AngularJS:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vue"><span class="toc-number">1.2.</span> <span class="toc-text">2.vue</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#webstorm添加vue文件语法支持"><span class="toc-number">1.</span> <span class="toc-text">webstorm添加vue文件语法支持</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-添加ES6语法支持："><span class="toc-number">1.1.</span> <span class="toc-text">1.添加ES6语法支持：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-添加vue语法支持："><span class="toc-number">1.2.</span> <span class="toc-text">2.添加vue语法支持：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-添加vue文件支持："><span class="toc-number">1.3.</span> <span class="toc-text">3.添加vue文件支持：</span></a></li></ol></li></ol>
         </div>
     
 </div>
