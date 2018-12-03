@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miss婷个人博客</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="冒泡，捕获事件IE使用的是事件冒泡，其他浏览器则是事件捕获
+他们是描述事件触发时序问题的术语。事件捕获指的是从document到触发事件的那个节点，即自上而下的去触发事件。相反的，事件冒泡是自下而上,"> 
+    <meta name="author" content="Miss 婷"> 
+    <link rel="alternative" href="atom.xml" title="Miss婷个人博客" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">vue轮播</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">vue轮播</h1>
+        <div class="stuff">
+            <span>十二月 03, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>轮播图有着许多实现方式，自己尝试用vue实现轮播图<br>上代码：</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+    &lt;style&gt;
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: black;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .app{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        img{
+            width: 500px;
+            height: 300px;
+        }
+        li{
+            width: 500px;
+            height: 300px;
+            border: 5px solid white;
+            color: white;
+            position: absolute;
+        }
+        ul{
+            width: 510px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .nav{
+            background-color: #c3c3c3;
+            color: white;
+            margin-left: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+           padding: 0 8px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+        .active{
+            opacity: 1;
+        }
+        li div{
+            margin-top: -30px;
+        }
+        .image-enter-active {
+            transition: all 1.5s linear
+        }
+        .image-leave-active {
+            transition: all 1.5s linear;
+        }
+        .image-enter-to {
+            transform: translateX(0);
+        }
+        .image-enter {
+            transform: translateX(100%);
+        }
+        .image-leave {
+            transform: translateX(0);
+        }
+        .image-leave-to {
+            transform: translateX(-100%);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;div  v-on:mouseover=&quot;stop()&quot; v-on:mouseout=&quot;move()&quot; class=&quot;app&quot;&gt;
+        &lt;transition-group tag=&quot;ul&quot; name=&quot;image&quot;&gt;
+            &lt;li v-for=&quot;(items,index) in list&quot; v-show=&quot;index===num&quot; :key=&quot;index&quot; &gt;
+                &lt;img :src=&quot;items&quot; alt=&quot;&quot;&gt;
+                &lt;div&gt;
+                &lt;span v-for=&quot;(items,index) in data&quot; class=&quot;nav&quot; @click=&quot;change(index)&quot; :class=&quot;{&apos;active&apos;:index==num}&quot;&gt;{{items}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/li&gt;
+        &lt;/transition-group&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src=&quot;vue.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+
+    new Vue({
+        el:&apos;#app&apos;,
+        data(){
+            return{
+                data:[&apos;1&apos;,&apos;2&apos;,&apos;3&apos;],
+                time:&apos;&apos;,
+                num:0,
+                list:[&apos;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1534136662314&amp;di=af7ec227db5e118a5626a94ab97026f3&amp;imgtype=0&amp;src=http%3A%2F%2Fc.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F4bed2e738bd4b31ccda81d7a8bd6277f9f2ff85f.jpg&apos;,
+                    &quot;https://ss3.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=4b22ec31ddc8a786a12a4c0e5708c9c7/5bafa40f4bfbfbedc5597ab474f0f736aec31ffc.jpg&quot;,
+                    &quot;https://ss3.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=87d6daed02f41bd5c553eef461d881a0/f9198618367adab4b025268587d4b31c8601e47b.jpg&quot;],
+            }
+        },
+        methods:{
+            play(){
+                this.time=setInterval(()=&gt;{
+                    this.num++;
+                    if(this.num==3){
+                        this.num=0
+                    }
+
+                },2000)
+            },
+            change(i){
+                this.num=i
+            },
+            stop(){
+                clearInterval(this.time)
+            },
+            move(){
+                this.play();
+            }
+        },
+        created(){
+            this.play();
+        },
+
+    })
+&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+        <div class="side">
+            
+        </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
