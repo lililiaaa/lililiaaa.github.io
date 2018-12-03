@@ -11,8 +11,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="冒泡，捕获事件IE使用的是事件冒泡，其他浏览器则是事件捕获
-他们是描述事件触发时序问题的术语。事件捕获指的是从document到触发事件的那个节点，即自上而下的去触发事件。相反的，事件冒泡是自下而上,"> 
+    <meta name="description" content="轮播图有着许多实现方式，自己尝试用vue实现轮播图上代码：
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+ ,"> 
     <meta name="author" content="Miss 婷"> 
     <link rel="alternative" href="atom.xml" title="Miss婷个人博客" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -27,7 +30,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">addEventListener兼容性问题</h3>
+    <h3 class="subtitle">事件冒泡，事件捕获，事件委托</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -44,39 +47,47 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">addEventListener兼容性问题</h1>
+        <h1 class="title">事件冒泡，事件捕获，事件委托</h1>
         <div class="stuff">
-            <span>十一月 16, 2018</span>
+            <span>十月 18, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <h1 id="addEventListener兼容性问题"><a href="#addEventListener兼容性问题" class="headerlink" title="addEventListener兼容性问题"></a>addEventListener兼容性问题</h1><p>FF和Chrome只支持addEventListener<br>addEventListener(click,fn,false);(true是捕获/false事件冒泡)<br>移除:removeEventListener</p>
-<p>ie只支持attachEvent<br>attachEvent(onclick,fn);/移除:detachEvent<br>问题:attachEvent的this指向是window(用call),IE后绑定的事件先调用,顺序有问题</p>
-<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><p>函数封装：</p>
-<pre><code>function addEvent(obj,ev,fn) //obj为要绑定事件的元素，ev为要绑定的事件，fn为绑定事件的函数
-{
-        if(obj.addEventListener){
-            obj.addEventListener(ev,fn,false);
-    }else if(obj.attachEvent){
-               obj[ev+fn] = function(){
-                        fn.call(obj);
-                        }
-            obj.attachEvent(&quot;on&quot; + ev,obj[ev+fn]);
-        }else {
-               obj[&apos;on&apos;+type]=fn;
-        }}
-function removeEvent(obj,ev,fn)
-{
-       if(obj.removeEventListener){
-                obj.removeEventListener(ev,fn);
-        }else if(obj.detachEvent){
-            obj.detachEvent(&quot;on&quot; + ev, obj[ev+fn]);
-                    }
-           }else {
-            obj[&apos;on&apos;+type]=null;
-        }}
-</code></pre>
+            <h1 id="冒泡，捕获事件"><a href="#冒泡，捕获事件" class="headerlink" title="冒泡，捕获事件"></a>冒泡，捕获事件</h1><p>IE使用的是事件冒泡，其他浏览器则是事件捕获</p>
+<p>他们是描述事件触发时序问题的术语。事件捕获指的是从document到触发事件的那个节点，即自上而下的去触发事件。相反的，事件冒泡是自下而上的去触发事件。</p>
+<p>绑定事件方法的第三个参数，就是控制事件触发顺序是否为事件捕获。true,事件捕获；false,事件冒泡。默认false,即事件冒泡。</p>
+<p>Jquery的e.stopPropagation会阻止冒泡，意思就是到我为止，我的爹和祖宗的事件就不要触发了。</p>
+<p>这是HTML结构：</p>
+<pre><code>&lt;div id=&quot;parent&quot;&gt;
+　    &lt;div id=&quot;child&quot; class=&quot;child&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>现在我们给它们绑定上事件</p>
+<pre><code>document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e){
+            alert(&quot;parent事件被触发，&quot;+this.id);
+        })
+document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e){
+            alert(&quot;child事件被触发，&quot;+this.id)
+        })
+</code></pre><p>结果：<br>child事件被触发，child<br>parent事件被触发，parent<br>结论：先child，然后parent。事件的触发顺序自内向外，这就是事件冒泡。<br>现在改变第三个参数的值为true
+　　　　　　　</p>
+<pre><code>document.getElementById(&quot;parent&quot;).addEventListener(&quot;click&quot;,function(e){
+                alert(&quot;parent事件被触发，&quot;+e.target.id);
+            },true)
+document.getElementById(&quot;child&quot;).addEventListener(&quot;click&quot;,function(e){
+                alert(&quot;child事件被触发，&quot;+e.target.id)
+            },true)
+</code></pre><p>结果：<br>parent事件被触发，parent<br>child事件被触发，child<br>结论：先parent,然后child。事件触发顺序变更为自外向内，这就是事件捕获。</p>
+<p><strong>IE采用attachEvent</strong>:<br>多次绑定后执行的顺序是不一样的，attachEvent是后绑定先执行，addEventListener是先绑定先执行。</p>
+<p>this指向window,而不是当前对象</p>
+<p>绑定时间时，attachEvent必须带on，如onclick，onmouseover等，而addEventListener不能带on，如click，mouseover。</p>
+<p>attachEvent仅需要传递两个参数，而addEventListener需要传递三个参数，这里牵扯到“事件流”的概念。侦听器在侦听时有三个阶段：捕获阶段、目标阶段和冒泡阶段。顺序为：捕获阶段（根节点到子节点检查是否调用了监听函数）→目 标阶段（目标本身）→冒泡阶段（目标本身到根节点）。此处的参数确定侦听器是运行于捕获阶段、目标阶段还是冒泡阶段。 如果将 useCapture 设置为 true，则侦听器只在捕获阶段处理事件，而不在目标或冒泡阶段处理事件。 如果useCapture 为 false，则侦听器只在目标或冒泡阶段处理事件。 要在所有三个阶段都侦听事件，请调用两次 addEventListener，一次将 useCapture 设置为 true，第二次再将useCapture 设置为 false。</p>
+<p><strong>执行顺序</strong>：先捕获再冒泡</p>
+<p><strong>事件冒泡用处</strong><br>1、子元素太多<br>2、后插入元素的事件绑定问题<br>不是所有的事件都能冒泡，例如：blur、focus、load、unload<br>\mouseleave,mouseEnter</p>
+<h2 id="事件代理-委托"><a href="#事件代理-委托" class="headerlink" title="事件代理/委托"></a>事件代理/委托</h2><p>利用事件冒泡。把子元素的事件绑定给父元素。</p>
+<pre><code>$companyList.on(&apos;click&apos;, &apos;li&apos;, function() {...});
+</code></pre><p><strong>事件委托的局限性</strong>：有些事件没有冒泡行为，focus，blur没有</p>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
@@ -98,7 +109,7 @@ function removeEvent(obj,ev,fn)
     </div>
     
         <div class="side">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#addEventListener兼容性问题"><span class="toc-number">1.</span> <span class="toc-text">addEventListener兼容性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法："><span class="toc-number">1.1.</span> <span class="toc-text">解决方法：</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#冒泡，捕获事件"><span class="toc-number">1.</span> <span class="toc-text">冒泡，捕获事件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#事件代理-委托"><span class="toc-number">1.1.</span> <span class="toc-text">事件代理/委托</span></a></li></ol></li></ol>
         </div>
     
 </div>
