@@ -27,7 +27,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">innerhtml,innertext区别</h3>
+    <h3 class="subtitle">基于create-react-app的再配置</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -44,23 +44,122 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">innerhtml,innertext区别</h1>
+        <h1 class="title">基于create-react-app的再配置</h1>
         <div class="stuff">
-            <span>十一月 15, 2018</span>
+            <span>一月 20, 2019</span>
             
 
         </div>
         <div class="content markdown">
-            <p><strong>innerhtml,innertext区别</strong><br>简单理解：</p>
-<p>一：只有一个标签的内容，例子如下：</p>
-<p><code>&lt;b id=&quot;b1&quot;&gt;测试innerHTML与innerText&lt;/b&gt;</code></p>
-<p>此时，inner HTML与inner Text获取到都是b内的内容：测试innerHTML与innerText；</p>
-<p>二：嵌套的子标签的内容，例子如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;d1&quot;&gt;</span><br><span class="line">&lt;p&gt;测试子inner&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>此时，innerHTMl获取到内容为div下的标签：</p><p>测试子inner</p>；<p></p>
-<p>inner Text获取到内容为div下p内的文本：测试子inner；</p>
-<p>同理，如果有两个子，也都会获取哦~</p>
-
+            <p>　使用Facebook官方推出的create-react-app脚手架，我们基本可以零配置搭建基于webpack的React开发环境。但是，如果需要个性化定制，则还需要基于create-react-app进行再配置</p>
+<p><strong>环境变量</strong></p>
+<p>【设置】</p>
+<p>　　在根目录下新建.env文件，可以用于本地环境变量覆盖</p>
+<p>　　如在该文件中进行如下设置</p>
+<pre><code>PORT=2000
+</code></pre><p>　　则开发服务器会在2000端口开启服务</p>
+<p>【默认】</p>
+<p>　　默认支持的环境变量有: NODE_ENV 和 PUBLIC_URL</p>
+<p>　　NODE_ENV: 该变量是自动赋值的，你不可以更改它的值，对于npm start, 它的值是develepment, npm test它的值是test, 对于npm run build, 它的值是production</p>
+<p>　　PUBLIC_URL: 这个变量可以用于引用模块系统之外的资源路径前缀</p>
+<p>【区分环境】</p>
+<p>　　一般地，在开发端，会使用redux-logger在控制台显示触发action时的日志，但在生产端，则完全不需要。可以使用NODE_ENV环境变量来区分环境</p>
+<pre><code>let store = null
+if (process.env.NODE_ENV === &apos;development&apos;) {
+  store = createStore(rootReducer, applyMiddleware(thunk, logger))
+} else {
+  store = createStore(rootReducer, applyMiddleware(thunk))
+}
+</code></pre><p>【外部资源】</p>
+<p>　　如果要设置静态资源CDN，则需要在.env文件中设置PUBLIC_URL</p>
+<pre><code>PUBLIC_URL = &apos;cdn url&apos;
+</code></pre><p>　　在HTML中使用</p>
+<pre><code>&lt;link rel=&quot;shortcut icon&quot; href=&quot;%PUBLIC_URL%/favicon.ico&quot;&gt;
+</code></pre><p>　　在Javascript中使用</p>
+<pre><code>return &lt;img src={process.env.PUBLIC_URL + &apos;/img/logo.png&apos;} /&gt;
+</code></pre><p>【自定义】</p>
+<p>　　可以自定义环境变量，不过需要遵照一个约定，所有自定义环境变量均以REACT_APP_开头</p>
+<p>　　这些环境变量会定义在process.env中。例如，环境变量REACT_APP_SECRET_CODE会在JS中暴露为<code>process.env.REACT_APP_SECRECT_CODE</code></p>
+<p>【更新】</p>
+<p>　　目录react-scripts最新版本是1.1.4，以如下方式进行更新</p>
+<pre><code>npm install --save --save-exact react-scripts@1.1.4
+</code></pre><p><strong>配置代理</strong></p>
+<p>　　在package.json中配置，与其他项目同级
+　　</p>
+<pre><code>&quot;scripts&quot;: {
+       &quot;start&quot;: &quot;react-scripts start&quot;,
+       &quot;build&quot;: &quot;react-scripts build&quot;,
+       &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+       &quot;eject&quot;: &quot;react-scripts eject&quot;
+     },
+     &quot;proxy&quot;: {
+       &quot;/api&quot;: {
+         &quot;target&quot;: &quot;https://m.weibo.cn&quot;,
+         &quot;changeOrigin&quot;: true,
+         &quot;pathRewrite&quot;:{&quot;^/api&quot;:&quot;&quot;}
+       }
+     }
+</code></pre><p>　　由于create-react-app默认支持fetch，所以在组件中使用fetch获取数据，结果显示在了控制台中</p>
+<pre><code>fetch(&apos;api/comments/show?id=4199740256395164&amp;page=1&apos;).then(res =&gt; {
+  res.json().then(data =&gt; {
+    console.log(data)
+  })
+})
+</code></pre><p><strong>配置别名</strong></p>
+<p>【rewire】</p>
+<p>　　使用react-app-rewired来进行react的再配置，首先使用npm安装</p>
+<pre><code>$ npm install react-app-rewired --save-dev
+</code></pre><p>　　然后，更改package.json中的scripts部分</p>
+<pre><code>&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;react-app-rewired start&quot;,
+  &quot;build&quot;: &quot;react-app-rewired build&quot;,
+  &quot;test&quot;: &quot;react-app-rewired test --env=jsdom&quot;,
+  &quot;eject&quot;: &quot;react-app eject&quot;
+},
+</code></pre><p>　　然后，在根目录新建config-overrides.js文件，配置如下</p>
+<pre><code>const path = require(&apos;path&apos;);
+function resolve(dir) {
+    return path.join(__dirname, &apos;.&apos;, dir)
+}
+module.exports = function override(config, env) {
+    config.resolve.alias = {
+        &apos;@&apos;: resolve(&apos;src&apos;)
+    }
+    return config;
+}
+</code></pre><p>　　重启开发服务器后，就可以使用@来表示’src’的绝对路径了</p>
+<p>【eject】</p>
+<p>　　或者，npm run eject之后 ，直接更改config目录下的dev.js和prod.js文件中的alias设置</p>
+<pre><code>alias: {
+  &apos;@&apos;: path.join(__dirname, &apos;..&apos;, &apos;src&apos;),
+  ... 
+},
+</code></pre><p><strong>配置eslint</strong></p>
+<p>　　安装插件</p>
+<pre><code>npm install react-app-rewired react-app-rewire-eslint --save
+</code></pre><p>　　在根目录下新建.eslint.js文件，文件中一定要添加如下配置</p>
+<pre><code>module.exports = {
+  &quot;parser&quot;:&quot;babel-eslint&quot;,
+    ...
+</code></pre><p>　　否则，会报下面的错误</p>
+<pre><code>Parsing error: Unexpected token =
+</code></pre><p><strong>配置PWA</strong></p>
+<p>　　create-react-app中有默认的service worker设置，但是没有对接口缓存进行处理</p>
+<p>　　下面对SWPrecacheWebpackPlugin插件的配置增加如下处理</p>
+<pre><code>runtimeCaching: [{
+    urlPattern: &apos;/&apos;,
+    handler: &apos;networkFirst&apos;
+  },
+  {
+    urlPattern: /\/(posts|categories|recommends|users)/,
+    handler: &apos;networkFirst&apos;
+  },
+  {
+    urlPattern: &apos;/posts/:id&apos;,
+    handler: &apos;networkFirst&apos;
+  }
+]
+</code></pre>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
